@@ -21,12 +21,15 @@ public class D_Diameter {
         }
 
         Queue<Integer> q = new LinkedList<>();
+
         int[] dis = new int[n + 1];
         Arrays.fill(dis, -1);
         int a = bfs(1, adjList, dis, q); // Find farthest node from node 1
+
         int[] dis2 = new int[n + 1];
         Arrays.fill(dis2, -1);
         int b = bfs(a, adjList, dis2, q); // Find farthest node from node a
+
         System.out.println(dis2[b]); // Print diameter length
         System.out.println(a + " " + b); // Print end points
     }
