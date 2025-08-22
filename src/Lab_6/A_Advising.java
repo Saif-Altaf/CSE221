@@ -23,27 +23,47 @@ public class A_Advising {
         ArrayList<Integer> res = new ArrayList<>();
 
         Stack<Integer> stack = new Stack<>();
-        boolean visited[] = new boolean[n + 1];
-        stack.push(2);
-        while (!stack.isEmpty()) {
-            int curr = stack.pop();
-            if (!visited[curr]) {
-                visited[curr] = true;
-                res.add(curr);
-                // Add neighbors to stack
-                for (int neighbor : adjlist.get(curr)) {
-                    if (!visited[neighbor]) {
-                        stack.push(neighbor);
-                    }
+        boolean[] visited = new boolean[n + 1];
+        boolean[] recStack = new boolean[n + 1];
+        boolean hasCycle = false;
+
+        for (int i = 1; i <= n; i++) {
+            if (!visited[i]) {
+                if (dfs(i, visited, recStack, stack, adjlist)) {
+                    hasCycle = true;
+                    break;
                 }
             }
         }
-        Collections.reverse(res);
-        System.out.println(res);
-        // if (res.size() == n) {
-        // System.out.println(res);
-        // } else {
-        // System.out.println(-1);
-        // }
+
+        while (!stack.isEmpty() && !hasCycle) {
+            res.add(stack.pop());
+        }
+
+        if (res.size() == n) {
+            for (int i = 0; i < res.size(); i++) {
+                System.out.print(res.get(i) + " ");
+            }
+        } else {
+            System.out.println(-1);
+        }
+    }
+
+    public static boolean dfs(int node, boolean[] visited, boolean[] recStack, Stack<Integer> st,
+            ArrayList<ArrayList<Integer>> adjlist) {
+        visited[node] = true;
+        recStack[node] = true;
+
+        for (int neighbour : adjlist.get(node)) {
+            if (!visited[neighbour]) {
+                if (dfs(neighbour, visited, recStack, st, adjlist))
+                    return true;
+            } else if (recStack[neighbour])
+                return true;
+        }
+
+        recStack[node] = false;
+        st.push(node);
+        return false;
     }
 }
