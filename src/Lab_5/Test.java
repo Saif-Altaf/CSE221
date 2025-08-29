@@ -1,46 +1,45 @@
-package Lab_5;
-
-import java.io.*;
-import java.util.*;
-
-public class Test {
-    static class Edge {
-        int des;
-
-        public Edge(int des) {
-            this.des = des;
-        }
-    }
-
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        String[] arr = br.readLine().split(" ");
-        int n = Integer.parseInt(arr[0]);
-        int r = Integer.parseInt(arr[1]);
-        int[][] matrix = new int[n + 1][n + 1];
-
-        for (int i = 0; i < n - 1; i++) {
-            String[] line = br.readLine().split(" ");
-            int source = Integer.parseInt(line[0]);
-            int destination = Integer.parseInt(line[1]);
-            matrix[source][destination] = 1;
-        }
-
-        int Q = 3;
-        for (int i = 0; i < Q; i++) {
-            int count = 1;
-            int s = Integer.parseInt(br.readLine());
-            for (int row = 1; row < matrix.length; row++) {
-                if (matrix[row][s] == 1 || row == s) {
-                    for (int col = 1; col < matrix[0].length; col++) {
-                        if (matrix[row][col] == 1) {
-                            count++;
-                        }
-                    }
-                }
-            }
-            System.out.println(count);
-        }
-    }
-}
+//package Lab_5;
+//
+//import java.io.*;
+//import java.util.*;
+//
+//public class Test {
+//    public static void main(String[] args) throws IOException {
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        String[] line1 = br.readLine().split(" ");
+//        int n = Integer.parseInt(line1[0]);
+//        int m = Integer.parseInt(line1[1]);
+//
+//        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+//        for (int i = 0; i <= n; i++) {
+//            list.add(new ArrayList<>());
+//        }
+//        for (int i = 0; i < m; i++) {
+//            String[] line2 = br.readLine().split(" ");
+//            int u = Integer.parseInt(line2[0]);
+//            int v = Integer.parseInt(line2[1]);
+//            list.get(u).add(v);
+//        }
+//
+//        Stack<Integer> st = new Stack<>();
+//        boolean[] vis = new boolean[n + 1];
+//        boolean[] restack = new boolean[n + 1];
+//        boolean hasCycle = true;
+//
+//        for (int i = 1; i <= n; i++) {
+//            if (!vis[i]) {
+//                if (dfs(i, st, vis, restack, list)) ;
+//            }
+//        }
+//    }
+//
+//    public static boolean dfs(int sr, Stack<Integer> st, boolean[] vis, boolean[] restack, ArrayList<ArrayList<Integer>> list) {
+//        vis[sr] = true;
+//        restack[sr] = true;
+//        for (int neigh : list.get(sr)) {
+//            if (!vis[neigh]) {
+//                if (dfs(neigh))
+//            }
+//        }
+//    }
+//}
